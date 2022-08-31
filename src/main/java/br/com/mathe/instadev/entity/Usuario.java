@@ -126,6 +126,11 @@ public class Usuario {
 		setQuantidadeSeguidores(seguidores.size());
 		this.seguidores = seguidores.stream().map(t -> t.getId()).collect(Collectors.toList());
 	}
+	
+	public void setSeguidoresLong(List<Long> seguidores) {
+		setQuantidadeSeguidores(seguidores.size());
+		this.seguidores = seguidores;
+	}
 
 	public Integer getQuantidadeSeguidores() {
 		return quantidadeSeguidores;
@@ -150,5 +155,10 @@ public class Usuario {
 
 	private void setQuantidadeSeguindo(Integer quantidadeSeguindo) {
 		this.quantidadeSeguindo = quantidadeSeguindo;
+	}
+
+	public void setSeguindoLong(List<Long> listaSeguindo) {
+		setQuantidadeSeguindo(listaSeguindo.size());
+		this.seguindo = listaSeguindo;
 	}
 }

@@ -26,7 +26,10 @@ public class Post implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;	
 	private String descricao;	
-	private Integer curtidas;
+	private Integer quantidadeCurtidas;
+	
+	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+	private List<Curtida> curtidas = new ArrayList<>();
 	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date dataPostada;
@@ -42,15 +45,12 @@ public class Post implements Serializable{
 
 	public Post() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Post(String descricao, Integer curtidas, Date dataPostada, List<Comentario> comentarios, Usuario usuario) {
+	public Post(String descricao, Date dataPostada, Usuario usuario) {
 		super();
 		this.descricao = descricao;
-		this.curtidas = curtidas;
 		this.dataPostada = dataPostada;
-		this.comentarios = comentarios;
 		this.usuario = usuario;
 	}
 
@@ -78,12 +78,12 @@ public class Post implements Serializable{
 		this.dataPostada = dataPostada;
 	}
 
-	public Integer getCurtidas() {
-		return curtidas;
+	public Integer getQuantidadeCurtidas() {
+		return quantidadeCurtidas;
 	}
 
-	public void setCurtidas(Integer curtidas) {
-		this.curtidas = curtidas;
+	public void setQuantidadeCurtidas(Integer curtidas) {
+		this.quantidadeCurtidas = curtidas;
 	}
 	
 
@@ -102,4 +102,13 @@ public class Post implements Serializable{
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
+
+	public List<Curtida> getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(List<Curtida> curtidas) {
+		this.curtidas = curtidas;
+	}
+	
 }

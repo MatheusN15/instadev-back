@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.mathe.instadev.entity.Comentario;
 import br.com.mathe.instadev.entity.Post;
+import br.com.mathe.instadev.entity.dto.PostCurtirDTO;
+import br.com.mathe.instadev.entity.dto.UsuarioSeguirDTO;
 import br.com.mathe.instadev.service.ComentarioService;
 import br.com.mathe.instadev.service.PostService;
 
@@ -38,10 +41,16 @@ public class PostController {
 		return service.findById(id);
 	}
 	
-	@GetMapping(value = "/c")
-	public List<Comentario> getComentarios() {
-		return comentService.findAll();
+	@PutMapping(value = "/curtir")
+	public ResponseEntity<?> curtirPost(@RequestBody PostCurtirDTO obj) {
+		service.curtirPost(obj);
+		return ResponseEntity.ok().build();
 	}
+	
+//	@GetMapping(value = "/c")
+//	public List<Comentario> getComentarios() {
+//		return comentService.findAll();
+//	}
 	
 	@PostMapping
 	public ResponseEntity<Post> getNewPost(@RequestBody Post obj) {

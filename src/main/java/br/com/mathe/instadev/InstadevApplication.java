@@ -39,13 +39,13 @@ public class InstadevApplication implements CommandLineRunner  {
 		
 		
 		Post p1 = new Post();
-		p1.setCurtidas(20);
+		p1.setQuantidadeCurtidas(20);
 		p1.setDataPostada(new Date("10/01/2022 11:15"));
 		p1.setDescricao("post qualquer 1");
 		p1.getComentarios().addAll(Arrays.asList(c1));
 		
 		Post p2 = new Post();
-		p1.setCurtidas(20);
+		p1.setQuantidadeCurtidas(20);
 		p1.setDataPostada(new Date("10/01/2022 11:15"));
 		p1.setDescricao("post qualquer 1");
 		p1.getComentarios().addAll(Arrays.asList(c1));

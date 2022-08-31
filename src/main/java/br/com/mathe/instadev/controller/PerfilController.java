@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.mathe.instadev.entity.Usuario;
 import br.com.mathe.instadev.entity.dto.UsuarioDTO;
 import br.com.mathe.instadev.entity.dto.UsuarioSearchDTO;
+import br.com.mathe.instadev.entity.dto.UsuarioSeguirDTO;
 import br.com.mathe.instadev.service.UsuarioService;
 
 @RestController()
@@ -58,5 +60,11 @@ public class PerfilController {
 		Page<Usuario> list = service.searchByUsername(username,page, linesPerPage, orderBy, direction);
 		Page<UsuarioSearchDTO> listDto = list.map(obj -> new UsuarioSearchDTO(obj));  
 		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@PutMapping(value = "/seguir")
+	public ResponseEntity<?> followPerfil(@RequestBody UsuarioSeguirDTO objLogado) {
+		service.seguirUsuario(objLogado);
+		return ResponseEntity.ok().build();
 	}
 }

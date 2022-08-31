@@ -1,5 +1,6 @@
 package br.com.mathe.instadev.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import br.com.mathe.instadev.entity.Usuario;
 import br.com.mathe.instadev.entity.dto.UsuarioDTO;
 import br.com.mathe.instadev.entity.dto.UsuarioSearchDTO;
+import br.com.mathe.instadev.entity.dto.UsuarioSeguirDTO;
 import br.com.mathe.instadev.exception.ObjectNotFoundException;
 import br.com.mathe.instadev.repository.UsuarioRepository;
 
@@ -53,5 +55,23 @@ public class UsuarioService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		Page<Usuario> list = repo.findDistinctByUsernameContainingIn(username, pageRequest);
 		return list;
+	}
+
+	public void seguirUsuario(UsuarioSeguirDTO objLogado) {
+
+		Usuario logado = findById(objLogado.getIdLogado());
+		Usuario seguido = findById(objLogado.getIdSeguido());
+		
+		List<Long> listaSeguidores = seguido.getSeguidores();
+		listaSeguidores.add(logado.getId());
+		
+		List<Long> listaSeguindo = logado.getSeguindo();
+		listaSeguindo.add(seguido.getId());
+		
+		seguido.setSeguidoresLong(listaSeguidores);
+		logado.setSeguindoLong(listaSeguindo);
+		
+		repo.save(logado);
+		repo.save(seguido);
 	}
 }
